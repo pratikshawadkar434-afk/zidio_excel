@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Excel Data Analyzer</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.21.0/tabler-icons.min.css">
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="toast"></div>
+
+  <header class="app-header">
+    <div class="brand">
+      <i class="ti ti-chart-bar"></i>
+      <span>Excel Data Analyzer</span>
+    </div>
+
+    <nav class="nav-actions">
+      <button class="btn ghost" id="btnTheme"><i class="ti ti-sun"></i><span>Theme</span></button>
+      <button class="btn outline" id="openAuth">Login / Register</button>
+      <button class="btn danger" id="logoutBtn" style="display:none;">Logout</button>
+    </nav>
+  </header>
+
+  <main class="container">
+    <section class="card upload-card">
+      <h2><i class="ti ti-upload"></i> Upload & Parse Excel</h2>
+      <div class="upload-area">
+        <input type="file" id="fileInput" accept=".xls,.xlsx" />
+        <button class="btn primary" id="parseBtn"><i class="ti ti-playstation-x"></i> Parse File</button>
+      </div>
+      <p class="hint">Supported formats: .xls, .xlsx • Parsing happens in your browser</p>
+    </section>
+
+    <section class="card settings-card">
+      <h2><i class="ti ti-settings"></i> Configure Chart</h2>
+      <div class="grid grid-3">
+        <div class="form-group">
+          <label for="xAxis">X-Axis</label>
+          <select id="xAxis"></select>
+        </div>
+        <div class="form-group">
+          <label for="yAxis">Y-Axis</label>
+          <select id="yAxis"></select>
+        </div>
+        <div class="form-group">
+          <label for="chartType">Chart Type</label>
+          <select id="chartType">
+            <option value="bar">Bar</option>
+            <option value="line">Line</option>
+            <option value="pie">Pie</option>
+            <option value="scatter">Scatter</option>
+          </select>
+        </div>
+      </div>
+      <div class="actions">
+        <button class="btn success" id="generateChart"><i class="ti ti-chart-infographic"></i> Generate Chart</button>
+        <button class="btn outline" id="downloadPNG"><i class="ti ti-download"></i> Download PNG</button>
+      </div>
+    </section>
+
+    <section class="card chart-card">
+      <div class="chart-wrap">
+        <canvas id="chartCanvas"></canvas>
+      </div>
+    </section>
+
+    <section class="card history-card">
+      <h2><i class="ti ti-history"></i> Upload History</h2>
+      <div id="historyList" class="history-list empty">
+        <p class="muted">No uploads yet. Upload a file to get started.</p>
+      </div>
+    </section>
+  </main>
+
+  <!-- Auth Modal -->
+  <dialog id="authModal" class="modal">
+    <form method="dialog" class="modal-content" id="authForm">
+      <div class="modal-header">
+        <h3 id="authTitle">Welcome</h3>
+        <button class="btn icon ghost" id="closeAuth" type="button"><i class="ti ti-x"></i></button>
+      </div>
+      <div class="tabs">
+        <button class="tab active" data-tab="login">Login</button>
+        <button class="tab" data-tab="register">Register</button>
+      </div>
+
+      <div class="tab-panel active" id="loginPanel">
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" id="loginEmail" placeholder="you@example.com" required />
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" id="loginPassword" placeholder="••••••••" required />
+        </div>
+        <button class="btn primary w-100" id="loginBtn" type="button">Login</button>
+      </div>
+
+      <div class="tab-panel" id="registerPanel">
+        <div class="form-group">
+          <label>Name</label>
+          <input type="text" id="regName" placeholder="Your Name" />
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" id="regEmail" placeholder="you@example.com" />
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" id="regPassword" placeholder="Create a strong password" />
+        </div>
+        <button class="btn success w-100" id="registerBtn" type="button">Create Account</button>
+      </div>
+    </form>
+  </dialog>
+
+  <footer class="app-footer">
+    <p></p>
+  </footer>
+
+  <!-- Libraries from CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+
+  <script src="script.js"></script>
+</body>
+</html>
